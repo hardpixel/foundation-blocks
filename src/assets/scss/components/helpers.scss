@@ -1,0 +1,185 @@
+
+// Classes to remove spacing and borders
+
+@each $attribute in (padding, margin, border) {
+  .no-#{$attribute} {
+    #{$attribute}: 0;
+  }
+
+  @each $side in (top, right, bottom, left) {
+    .no-#{$attribute}-#{$side} {
+      #{$attribute}-$side: 0;
+    }
+  }
+}
+
+// Classes to add padding and margin
+
+@each $attribute in (margin, padding) {
+  $value: $global-margin;
+  $small-value: $value / 2;
+  $large-value: $value * 2;
+
+  @if $attribute == padding {
+    $value: $global-padding;
+  }
+
+  .#{$attribute} {
+    #{$attribute}: $value;
+  }
+
+  .#{$attribute}-sm {
+    #{$attribute}: $small-value;
+  }
+
+  .#{$attribute}-lg {
+    #{$attribute}: $large-value;
+  }
+
+  @each $br in $breakpoint-classes {
+    @include breakpoint($br) {
+      .#{$br}-#{$attribute} {
+        #{$attribute}: $value;
+      }
+
+      .#{$br}-#{$attribute}-sm {
+        #{$attribute}: $small-value;
+      }
+
+      .#{$br}-#{$attribute}-lg {
+        #{$attribute}: $large-value;
+      }
+    }
+
+    @each $side in (top, right, bottom, left, x, y) {
+
+      @if $side == x {
+        @include breakpoint($br) {
+          .#{$br}-#{$attribute}-#{$side} {
+            #{$attribute}-left: $value;
+            #{$attribute}-right: $value;
+          }
+
+          .#{$br}-#{$attribute}-#{$side}-sm {
+            #{$attribute}-left: $small-value;
+            #{$attribute}-right: $small-value;
+          }
+
+          .#{$br}-#{$attribute}-#{$side}-lg {
+            #{$attribute}-left: $large-value;
+            #{$attribute}-right: $large-value;
+          }
+        }
+      }
+
+      @else if $side == y {
+        @include breakpoint($br) {
+          .#{$br}-#{$attribute}-#{$side} {
+            #{$attribute}-top: $value;
+            #{$attribute}-bottom: $value;
+          }
+
+          .#{$br}-#{$attribute}-#{$side}-sm {
+            #{$attribute}-top: $small-value;
+            #{$attribute}-bottom: $small-value;
+          }
+
+          .#{$br}-#{$attribute}-#{$side}-lg {
+            #{$attribute}-top: $large-value;
+            #{$attribute}-bottom: $large-value;
+          }
+        }
+      }
+
+      @else {
+        @include breakpoint($br) {
+          .#{$br}-#{$attribute}-#{$side} {
+            #{$attribute}-$side: $value;
+          }
+
+          .#{$br}-#{$attribute}-#{$side}-sm {
+            #{$attribute}-$side: $small-value;
+          }
+
+          .#{$br}-#{$attribute}-#{$side}-lg {
+            #{$attribute}-$side: $large-value;
+          }
+        }
+      }
+    }
+  }
+
+  @each $side in (top, right, bottom, left, x, y) {
+
+    @if $side == x {
+      .#{$attribute}-#{$side} {
+        #{$attribute}-left: $value;
+        #{$attribute}-right: $value;
+      }
+
+      .#{$attribute}-#{$side}-sm {
+        #{$attribute}-left: $small-value;
+        #{$attribute}-right: $small-value;
+      }
+
+      .#{$attribute}-#{$side}-lg {
+        #{$attribute}-left: $large-value;
+        #{$attribute}-right: $large-value;
+      }
+    }
+
+    @else if $side == y {
+      .#{$attribute}-#{$side} {
+        #{$attribute}-top: $value;
+        #{$attribute}-bottom: $value;
+      }
+
+      .#{$attribute}-#{$side}-sm {
+        #{$attribute}-top: $small-value;
+        #{$attribute}-bottom: $small-value;
+      }
+
+      .#{$attribute}-#{$side}-lg {
+        #{$attribute}-top: $large-value;
+        #{$attribute}-bottom: $large-value;
+      }
+    }
+
+    @else {
+      .#{$attribute}-#{$side} {
+        #{$attribute}-$side: $value;
+      }
+
+      .#{$attribute}-#{$side}-sm {
+        #{$attribute}-$side: $small-value;
+      }
+
+      .#{$attribute}-#{$side}-lg {
+        #{$attribute}-$side: $large-value;
+      }
+    }
+  }
+}
+
+
+// Radius classes
+
+.no-radius {
+  border-radius: 0;
+}
+
+.no-radius-top-left {
+  border-top-left-radius: 0;
+}
+
+.no-radius-top-right {
+  border-top-right-radius: 0;
+}
+
+.no-radius-bottom-right {
+  border-bottom-right-radius: 0;
+}
+
+.no-radius-bottom-left {
+  border-bottom-left-radius: 0;
+}

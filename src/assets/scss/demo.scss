@@ -1,0 +1,22 @@
+.page-section:not(.columns):not(.inline):not(.row) {
+  border-bottom: 1px solid rgba(black, .2);
+}
+
+#main-nav {
+  border-bottom: 1px solid rgba(black, .2);
+
+  .top-bar {
+    background: white;
+    padding: 1rem;
+  }
+
+  ul {
+    background: white;
+  }
+}
+
+#main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
