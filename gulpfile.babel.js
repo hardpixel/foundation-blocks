@@ -12,6 +12,7 @@ import fs            from 'fs';
 import webpackStream from 'webpack-stream';
 import webpack2      from 'webpack';
 import named         from 'vinyl-named';
+import slim          from 'gulp-slim';
 
 // Load all Gulp plugins into one variable
 const $ = plugins();
@@ -29,7 +30,7 @@ function loadConfig() {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel(pages, sass, demo_css, javascript, images, copy), styleGuide));
+ gulp.series(clean, gulp.parallel(pages, parseslim, sass, demo_css, javascript, images, copy), styleGuide));
 
 // Build the site, run the server, and watch for file changes
 gulp.task('default',
@@ -50,7 +51,7 @@ function copy() {
 
 // Copy page templates into finished HTML files
 function pages() {
-  return gulp.src('src/pages/**/*.{html,hbs,handlebars}')
+  return gulp.src('src/pages/**/*.{html,hbs,handlebars,slim}')
     .pipe(panini({
       root:     'src/pages/',
       layouts:  'src/layouts/',
@@ -73,6 +74,15 @@ function styleGuide(done) {
     output:   PATHS.dist + '/styleguide.html',
     template: 'src/styleguide/template.html'
   }, done);
+}
+
+
+function parseslim() {
+  return gulp.src("src/pages/*.slim")
+    .pipe(slim({
+      pretty: true
+    }))
+    .pipe(gulp.dest(PATHS.dist));
 }
 
 // Compile Sass into CSS
@@ -158,7 +168,8 @@ function reload(done) {
 function watch() {
   gulp.watch(PATHS.assets, copy);
   gulp.watch('src/pages/**/*.html').on('all', gulp.series(pages, browser.reload));
-  gulp.watch('src/{layouts,partials}/**/*.html').on('all', gulp.series(resetPages, pages, browser.reload));
+  gulp.watch('src/pages/*.slim').on('all', gulp.series(parseslim, pages, browser.reload));
+  gulp.watch('src/{layouts,partials}/**/*').on('all', gulp.series(parseslim, resetPages, pages, browser.reload));
   gulp.watch('src/assets/scss/**/*.scss').on('all', sass);
   gulp.watch('src/assets/scss/demo.scss').on('all', demo_css);
   gulp.watch('src/assets/js/**/*.js').on('all', gulp.series(javascript, browser.reload));
