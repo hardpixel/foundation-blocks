@@ -1,0 +1,17 @@
+.button {
+
+  + .button {
+    margin-left: $global-margin;
+  }
+
+  &.white {
+    background-color: $white;
+    color: $primary-color;
+    border-color: $white;
+  }
+
+  &.round {
+    border-radius: 10em;
+    min-width: 10rem;
+  }
+}

@@ -164,6 +164,10 @@
 
 // Radius classes
 
+.radius {
+  border-radius: $global-radius;
+}
+
 .no-radius {
   border-radius: 0;
 }

@@ -1,4 +1,4 @@
-// @import 'buttons';
+@import 'buttons';
 // @import 'cards';
 // @import 'mixins';
 // @import 'variables';
@@ -61,10 +61,29 @@
   font-size: $global-font-size * 1.15;
 }
 
+.huge-text {
+  font-size: $global-font-size * 2;
+}
+
 .light-text {
   font-weight: 300;
 }
 
+// Shadow
+
+.shadow {
+  box-shadow: $prototype-box-shadow;
+}
+
+.no-shadow {
+  box-shadow: none;
+}
+
+// Position
+
+.relative {
+  position: relative;
+}
 
 // Footer
 
@@ -145,7 +164,7 @@ header + header {
 }
 
 .bg-gray {
-  background-color: #fafafa;
+  background-color: $light-gray;
   color: $body-font-color;
 }
 
